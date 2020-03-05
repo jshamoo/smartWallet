@@ -5,14 +5,8 @@ const db = new Sequelize('smartWallet', 'root', '', {
   dialect: 'mysql'
 });
 
-// checking connection
-// db.authenticate()
-//   .then(() => console.log('Connection has been established successfully.'))
-//   .catch((error: String) => { console.error('Unable to connect to the database:', error)})
-
-
 // create models
-class Transcations extends Model {
+class Transactions extends Model {
   public id!: number;
   public date!: Date;
   public amount!: number;
@@ -25,7 +19,7 @@ class Categories extends Model {
   public budget!: number;
 }
 
-Transcations.init({
+Transactions.init({
   id: {
     type: DataTypes.INTEGER.UNSIGNED,
     autoIncrement: true,
@@ -41,7 +35,7 @@ Transcations.init({
   },
   description: {
     type: DataTypes.STRING,
-    allowNull: true,
+    allowNull: false,
   }
 }, {
   tableName: 'transactions',
@@ -67,8 +61,10 @@ Categories.init({
   sequelize: db,
 });
 
-Transcations.belongsTo(Categories);
-Categories.hasMany(Transcations);
+Categories.hasMany(Transactions);
+Transactions.belongsTo(Categories);
 
-Transcations.sync();
 Categories.sync();
+Transactions.sync();
+
+export { Transactions, Categories };

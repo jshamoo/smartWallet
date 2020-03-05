@@ -7,3 +7,4 @@ client/dist/*
 client/src/*
 js.*.js
 schema.sql
+build
