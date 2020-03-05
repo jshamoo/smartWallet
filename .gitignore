@@ -1,0 +1,9 @@
+node_modules
+client/dist/bundle.js
+client/dist/bundle.js.map
+README.md
+mockups
+client/dist/*
+client/src/*
+js.*.js
+schema.sql
