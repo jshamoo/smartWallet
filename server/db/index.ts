@@ -5,7 +5,6 @@ const db = new Sequelize('smartWallet', 'root', '', {
   dialect: 'mysql'
 });
 
-// create models
 class Transactions extends Model {
   public id!: number;
   public date!: Date;

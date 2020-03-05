@@ -5,7 +5,6 @@ const db = new sequelize_1.Sequelize('smartWallet', 'root', '', {
     host: 'localhost',
     dialect: 'mysql'
 });
-// create models
 class Transactions extends sequelize_1.Model {
 }
 exports.Transactions = Transactions;
