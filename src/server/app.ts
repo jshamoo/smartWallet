@@ -1,18 +1,18 @@
 import express from 'express';
 import morgan from 'morgan';
 import { Transactions, Categories } from './db/index';
-import { readSync } from 'fs';
 
 const app = express();
 app.use(morgan('tiny'));
+app.use(express.static('dist/client'));
 
-app.get('/', (req, res) => {
+app.get('/api', (req, res) => {
   Transactions.findAll({include: [Categories]})
     .then((docs) => res.send(docs))
     .catch(err => console.error(err))
 });
 
-app.get('/trans', (req, res) => {
+app.get('/api/trans', (req, res) => {
   Transactions.findAll()
     .then((docs) => {
       res.send(docs);
@@ -20,7 +20,7 @@ app.get('/trans', (req, res) => {
     .catch(err => console.error(err))
 })
 
-app.get('/cate', (req, res) => {
+app.get('/api/cate', (req, res) => {
   Categories.findAll()
     .then((docs) => {
       res.send(docs);

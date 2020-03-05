@@ -1,10 +1,8 @@
 node_modules
-client/dist/bundle.js
-client/dist/bundle.js.map
 README.md
 mockups
-client/dist/*
-client/src/*
-js.*.js
+client-react
+dist/**/*.js
+dist/*.js
+README.md
 schema.sql
-build/*
