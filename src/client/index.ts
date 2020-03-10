@@ -1,10 +1,30 @@
-// import Vue from 'vue';
+import * as Vue from 'vue';
+import App from './App.vue';
+// import axios from 'axios';
+const axios = require('axios').default;
 
-console.log('index.ts is running')
+const trans: Array<Object> = [];
 
-// var app = new Vue({
-//   el: '#app',
-//   data: {
-//     message: 'Hello Vue'
-//   }
-// })
+new Vue({
+  el: '#app',
+  components: { App },
+  template: '<App v-bind:trans="trans"/>',
+  data() {
+    return {
+      trans
+    }
+  },
+  methods: {
+    getAllTrans() {
+      axios.get('/api')
+        .then((res: any) => {
+          this.trans = res.data.slice(0, 15);
+        })
+        .catch((err: String) => console.error(err));
+    }
+  },
+  created() {
+    this.getAllTrans();
+  }
+
+});
