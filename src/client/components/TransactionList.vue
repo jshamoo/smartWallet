@@ -13,9 +13,7 @@
         <div class="txn-data">${{ record.amount }} </div>
         <div class="txn-data">{{ record.description }}</div>
         <select class="txn-data">
-          <option>None</option>
-          <option>A</option>
-          <option>B</option>
+          <option v-for="cate in categories" v-bind:key="cate.id">{{ cate.name }}</option>
         </select>
       </div>
     </div>
@@ -28,7 +26,10 @@
     props: {
       trans: {
         type: Array
+      },
+      categories: {
+        type: Array
       }
-    }
+    },
   }
 </script>
