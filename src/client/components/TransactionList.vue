@@ -12,8 +12,15 @@
         <div class="txn-data">{{ record.date }}</div>
         <div class="txn-data">${{ record.amount }} </div>
         <div class="txn-data">{{ record.description }}</div>
-        <select class="txn-data">
-          <option v-for="cate in categories" v-bind:key="cate.id">{{ cate.name }}</option>
+        <select class="txn-data" >
+          <option v-show="!record.Category" selected>Select A Category</option>
+          <option
+            v-for="cate in categories"
+            v-bind:key="cate.id"
+            v-bind:selected="selectedCategories[record.id] == cate.name"
+          >
+            {{ cate.name }}
+          </option>
         </select>
       </div>
     </div>
@@ -29,6 +36,9 @@
       },
       categories: {
         type: Array
+      },
+      selectedCategories: {
+        type: Object
       }
     },
   }

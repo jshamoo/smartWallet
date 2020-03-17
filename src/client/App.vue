@@ -2,7 +2,7 @@
   <div>
     <h1>Smart Wallet</h1>
     <div class="app">
-     <TransactionList v-bind:trans="trans" v-bind:categories="categories"></TransactionList>
+     <TransactionList v-bind:trans="trans" v-bind:categories="categories" v-bind:selectedCategories="selectedCategories"></TransactionList>
     </div>
     <div class="category">
       <h3>Budget category</h3>
@@ -24,6 +24,9 @@
       categories: {
         type: Array
       },
+      selectedCategories: {
+        type: Object
+      }
     }
   }
 </script>
