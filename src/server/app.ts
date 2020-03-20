@@ -1,9 +1,12 @@
 import express from 'express';
 import morgan from 'morgan';
+import bodyParser from 'body-parser';
 import { Transactions, Categories } from './db/index';
 
 const app = express();
 app.use(morgan('tiny'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static('dist/client'));
 
 app.get('/api', (req, res) => {
@@ -26,6 +29,15 @@ app.get('/api/cate', (req, res) => {
       res.send(docs);
     })
     .catch(err => console.error(err))
+})
+
+app.patch('/api/trans/:id', (req, res) => {
+  console.log( req.params, req.body);
+  Transactions.update(req.body, {
+    where: req.params
+  })
+    .then(() => res.sendStatus(201))
+    .catch((err) => console.error(err));
 })
 
 app.listen('5000', () => {

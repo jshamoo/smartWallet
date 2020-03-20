@@ -12,7 +12,7 @@
         <div class="txn-data">{{ record.date }}</div>
         <div class="txn-data">${{ record.amount }} </div>
         <div class="txn-data">{{ record.description }}</div>
-        <select class="txn-data" >
+        <select class="txn-data" @change="changeOption">
           <option disabled v-bind:selected="record.CategoryId === null" > - </option>
           <option
             v-for="cate in categories"
@@ -39,5 +39,11 @@
         type: Array
       }
     },
+    methods: {
+      changeOption(e: any) {
+        console.log(e.target.value)
+
+      }
+    }
   }
 </script>

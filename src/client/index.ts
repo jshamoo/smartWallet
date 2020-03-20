@@ -45,7 +45,6 @@ new Vue({
     getAllTrans() {
       axios.get('/api')
         .then((res: any) => {
-          console.log(res.data[0]);
           this.trans = res.data.slice(0, 15);
         })
         .catch((err: string) => console.error(err));
