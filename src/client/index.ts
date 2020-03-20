@@ -23,9 +23,9 @@ interface Record {
   updatedAt: string,
 }
 
-interface SelectedCategories {
-  [id: number]: string,
-};
+// interface SelectedCategories {
+//   [id: number]: string,
+// };
 // {1: Grocery, 2: Grocery: 3}
 
 const trans: Array<Record> = [];
@@ -34,7 +34,7 @@ const categories: Array<Category> = [];
 new Vue({
   el: '#app',
   components: { App },
-  template: '<App v-bind:trans="trans" v-bind:categories="categories" v-bind:selectedCategories="selectedCategories"/>',
+  template: '<App v-bind:trans="trans" v-bind:categories="categories"/>',
   data() {
     return {
       trans,
@@ -56,20 +56,11 @@ new Vue({
           this.categories = res.data;
         })
         .catch((err: string) => console.error(err));
-    }
+    },
   },
   created() {
     this.getAllTrans();
     this.getAllCate();
-  },
-  computed: {
-    selectedCategories: function() {
-      const selectedCategories: SelectedCategories = {};
-      this.trans.forEach((record: Record) => {
-        selectedCategories[record.id] = record.Category.name || '';
-      });
-      return selectedCategories;
-    }
   }
 
 });
