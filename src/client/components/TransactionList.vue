@@ -13,7 +13,7 @@
         <div class="txn-data">${{ record.amount }} </div>
         <div class="txn-data">{{ record.description }}</div>
         <select class="txn-data" >
-          <option disabled v-bind:selected="record.CategoryId === null" >Select A Category</option>
+          <option disabled v-bind:selected="record.CategoryId === null" > - </option>
           <option
             v-for="cate in categories"
             v-bind:key="cate.id"
