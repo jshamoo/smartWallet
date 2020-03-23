@@ -1,5 +1,4 @@
 const path = require('path');
-const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 module.exports = {
   mode: "development",
@@ -15,25 +14,19 @@ module.exports = {
         test: /\.ts?$/,
         exclude: /node_modules/,
         loader: 'ts-loader',
-        options: {
-          appendTsSuffixTo: [/\.vue$/],
-        }
       },
       {
-        test: /\.vue?$/,
+        test: /\.tsx?$/,
         exclude: /node_modules/,
-        loader: 'vue-loader',
+        loader: 'babel-loader',
         options: {
-          esModule: true
+          presets: ['@babel/preset-env', '@babel/preset-react']
         }
       }
     ]
   },
-  plugins: [
-    new VueLoaderPlugin()
-  ],
   resolve: {
-    alias: { vue: 'vue/dist/vue.js' },
-    extensions: ['.ts', '.js', '.vue'],
-  }
+    // Add '.ts' and '.tsx' as resolvable extensions.
+    extensions: [".ts", ".tsx", ".js"]
+  },
 };
