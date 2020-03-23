@@ -29,10 +29,4 @@ module.exports = {
     // Add '.ts' and '.tsx' as resolvable extensions.
     extensions: [".ts", ".tsx", ".js"]
   },
-  externals: {
-    // react: "React",
-    // "react-dom": "ReactDOM",
-    // axios: 'axios'
-  }
-
 };
