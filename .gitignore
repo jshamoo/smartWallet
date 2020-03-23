@@ -6,3 +6,4 @@ dist/**/*.js
 dist/*.js
 README.md
 schema.sql
+uploads

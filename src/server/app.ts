@@ -10,8 +10,8 @@ app.use(morgan('tiny'));
 app.use(express.static('dist/client'));
 
 const upload = multer({ dest: 'uploads/' });
-app.post('/api/upload', upload.single('fin'), (req, res) => {
-  console.log(req.file)
+app.post('/api/upload', upload.array('fin'), (req, res) => {
+  console.log(req.files)
   res.sendStatus(201);
 })
 
