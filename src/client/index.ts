@@ -1,6 +1,5 @@
 import * as Vue from 'vue';
 import App from './App.vue';
-import { writevSync } from 'fs';
 const axios = require('axios').default;
 
 
