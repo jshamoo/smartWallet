@@ -1,7 +1,8 @@
 import React from 'react';
-import TransactionList from './components/TransactionList';
-import BugetCategoryList from './components/BugetCategoryList';
-import AddCategory from './components/AddCategory';
+// import TransactionList from './components/TransactionList';
+// import BugetCategoryList from './components/BugetCategoryList';
+// import AddCategory from './components/AddCategory';
+import FileUpload from './components/FileUpload';
 
 
 class App extends React.Component {
@@ -13,14 +14,15 @@ class App extends React.Component {
     return (
       <div>
         <h1>Smart Wallet</h1>
-        <div className="app">
+        <FileUpload />
+        {/* <div className="app">
           <TransactionList />
         </div>
         <div className="category">
           <h3>Budget Categories</h3>
           <BugetCategoryList />
           <AddCategory />
-        </div>
+        </div> */}
       </div>
     )
   }

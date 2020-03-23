@@ -1,14 +1,22 @@
 import express from 'express';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
+import multer from 'multer';
+import fs from 'fs';
 import { Transactions, Categories } from './db/index';
 
 const app = express();
 app.use(morgan('tiny'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static('dist/client'));
 
+const upload = multer({ dest: 'uploads/' });
+app.post('/api/upload', upload.single('fin'), (req, res) => {
+  console.log(req.file)
+  res.sendStatus(201);
+})
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.get('/api', (req, res) => {
   Transactions.findAll({include: [Categories]})
     .then((docs) => res.send(docs))
@@ -32,7 +40,6 @@ app.get('/api/cate', (req, res) => {
 })
 
 app.patch('/api/trans/:id', (req, res) => {
-  console.log( req.params, req.body);
   Transactions.update(req.body, {
     where: req.params
   })
