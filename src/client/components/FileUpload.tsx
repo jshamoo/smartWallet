@@ -2,26 +2,29 @@ import React from 'react';
 import axios from 'axios';
 import $ from 'jquery';
 
-interface FileUploadProps {
-
+interface HTMLInputEvent extends Event {
+  target: HTMLInputElement & EventTarget;
 }
 
-class FileUpload extends React.Component {
-  fileInput: React.RefObject<HTMLInputElement>;
-  constructor(props: FileUploadProps) {
-    super(props);
+interface State {
+  file: File | null;
+}
+
+class FileUpload extends React.Component<{}, State>{
+  constructor() {
+    super();
+    this.state = {
+      file: null
+    }
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.fileInput = React.createRef();
+    this.handleFile = this.handleFile.bind(this);
   }
 
-  handleSubmit(e: React.FormEvent) {
+  handleSubmit(e: React.FormEvent): void {
     e.preventDefault();
-    const files = this.fileInput.current.files;
     const formData = new FormData();
-    for (let i = 0; i < files.length; i++) {
-      formData.append('fin', files[i]);
-    }
 
+    formData.append('fin', this.state.file);
     axios({
       url:'/api/upload',
       method: 'POST',
@@ -34,16 +37,19 @@ class FileUpload extends React.Component {
       .catch((err) => console.log(err));
   }
 
+  handleFile(e: HTMLInputEvent): void {
+    this.setState({file: e.target.files[0]})
+  }
+
   render() {
     return (
-      <form onSubmit={(e) => this.handleSubmit(e)} encType="multipart/form-data">
+      <form onSubmit={this.handleSubmit} encType="multipart/form-data">
         <label>
           Upload Your CSV File:
           <input
             type="file"
-            ref={this.fileInput}
             accept=".csv"
-            multiple={true}
+            onChange={this.handleFile}
           />
         </label>
         <br />
