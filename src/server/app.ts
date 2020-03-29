@@ -1,7 +1,8 @@
 import express from 'express';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
-import handleUpload from './router';
+import multer from 'multer';
+import { handleUpload } from './router';
 import { Transactions, Categories } from './db/index';
 
 const app = express();
@@ -41,7 +42,8 @@ app.patch('/api/trans/:id', (req, res) => {
   .catch((err) => console.error(err));
 })
 
-app.post('/api/upload', handleUpload);
+const upload = multer({ dest: 'dist/uploads' }).single('fin');
+app.post('/api/upload', upload, handleUpload);
 
 app.listen('5000', () => {
   console.log('Express Server is listening on 5000');
