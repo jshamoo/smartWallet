@@ -18,7 +18,8 @@ interface State {
 }
 
 const App = () => {
-  const [transactions, setTransactions] = useState(trans)
+  const [transactions, setTransactions] = useState(trans);
+
   function handleFileSubmit(file: File) {
     const formData = new FormData();
 
