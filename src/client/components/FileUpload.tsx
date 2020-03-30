@@ -1,5 +1,4 @@
-import React from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
 
 interface State {
   file: File | null;
@@ -9,41 +8,34 @@ interface FileUploadProps {
   handleFileSubmit: Function
 }
 
-class FileUpload extends React.Component<FileUploadProps, State>{
-  constructor(props: any) {
-    super(props);
-    this.state = {
-      file: null
-    }
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleFile = this.handleFile.bind(this);
-  }
+const FileUpload = (props: FileUploadProps) => {
+  const [file, setFile] = useState(null)
 
-  handleSubmit(e: React.FormEvent) {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    this.props.handleFileSubmit(this.state.file)
+    console.log('submiting event', e)
+    props.handleFileSubmit(file)
   }
 
-  handleFile(e: React.ChangeEvent<HTMLInputElement>) {
-    this.setState({ file: e.target.files[0] })
+  const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFile(e.target.files[0])
   }
 
-  render() {
-    return (
-      <form onSubmit={(e) => this.handleSubmit(e)} encType="multipart/form-data">
-        <label>
-          Upload Your CSV File:
-          <input
-            type="file"
-            accept=".csv"
-            onChange={(e) => this.handleFile(e)}
-          />
-        </label>
-        <br />
-        <button type="submit">Submit</button>
-      </form>
-    )
-  }
+  return (
+    <form onSubmit={(e) => handleSubmit(e)} encType="multipart/form-data">
+      <label>
+        Upload Your CSV File:
+        <input
+          type="file"
+          accept=".csv"
+          onChange={(e) => handleFile(e)}
+        />
+      </label>
+      <br />
+      <button type="submit">Submit</button>
+    </form>
+  )
+
 }
 
 
