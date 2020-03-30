@@ -25,14 +25,15 @@ const TransactionList = (props: TransListProps) => {
           </tr>
         </thead>
         <tbody>
-          {props.transList.map(record => (
-            <tr key={record.id}>
+          {props.transList.map((record, index) => (
+            <tr key={index}>
               <td>
                 <input type="checkbox"/>
               </td>
-              <td>{record.date}</td>
-              <td>{record.description}</td>
-              <td>$ {record.amount}</td>
+              <td>{record.Date}</td>
+              <td>{record.Description}</td>
+              <td>$ {record.Amount}</td>
+              <td>{record.Category}</td>
             </tr>
           ))}
         </tbody>

@@ -1,16 +1,15 @@
 import React from 'react';
 import axios from 'axios';
-import $ from 'jquery';
-
-// interface HTMLInputEvent extends Event {
-//   target: HTMLInputElement & EventTarget;
-// }
 
 interface State {
   file: File | null;
 }
 
-class FileUpload extends React.Component<{}, State>{
+interface FileUploadProps {
+  handleFileSubmit: Function
+}
+
+class FileUpload extends React.Component<FileUploadProps, State>{
   constructor(props: any) {
     super(props);
     this.state = {
@@ -22,19 +21,7 @@ class FileUpload extends React.Component<{}, State>{
 
   handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    const formData = new FormData();
-
-    formData.append('fin', this.state.file);
-    axios({
-      url:'/api/upload',
-      method: 'POST',
-      data: formData,
-      headers: {
-        'content-type': 'multipart/form-data'
-      }
-    })
-      .then((res) => console.log('success', res))
-      .catch((err) => console.log(err));
+    this.props.handleFileSubmit(this.state.file)
   }
 
   handleFile(e: React.ChangeEvent<HTMLInputElement>) {

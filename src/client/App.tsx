@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import TransactionList from './components/TransactionList';
 import BugetCategoryList from './components/BugetCategoryList';
 import AddCategory from './components/AddCategory';
@@ -16,13 +17,35 @@ class App extends React.Component<{}, State> {
     this.state = {
       transactions: trans
     }
+    this.handleFileSubmit = this.handleFileSubmit.bind(this)
+  }
+
+  handleFileSubmit(file: File) {
+    const formData = new FormData();
+
+    formData.append('fin', file);
+    axios({
+      url: '/api/upload',
+      method: 'POST',
+      data: formData,
+      headers: {
+        'content-type': 'multipart/form-data'
+      }
+    })
+      .then((res) => {
+        console.log('success', res);
+        this.setState({
+          transactions: res.data
+        })
+      })
+      .catch((err) => console.log(err));
   }
 
   render() {
     return (
       <div>
         <h1>Smart Wallet</h1>
-        <FileUpload />
+        <FileUpload handleFileSubmit={this.handleFileSubmit}/>
         <div className="app">
           <TransactionList transList={this.state.transactions}/>
         </div>
