@@ -10,15 +10,18 @@ interface Record {
   Date: string,
   Amount: number,
   Description: string,
-  Category: string
+  Category: string,
+  [key: string]: string | number
 }
 
 interface State {
   transactions: Array<Record>
 }
 
+
 const App = () => {
   const [transactions, setTransactions] = useState(trans);
+  const [direction, setDirection] = useState(1);
 
   function handleFileSubmit(file: File) {
     const formData = new FormData();
@@ -41,8 +44,13 @@ const App = () => {
       .catch((err) => console.log(err));
   }
 
-  function handleSort() {
-    setTransactions(transactions.sort((a: Record, b: Record) => a.Amount - b.Amount));
+  function handleSort(e: React.MouseEvent<HTMLElement>) {
+    setDirection(-direction);
+    const sortBy = e.target.innerText;
+    // because sort is in place, we must make a copy first, otherwise it is not considered to be a new state
+    setTransactions([...transactions].sort((a: Record, b: Record) => a[sortBy] > b[sortBy] ? direction : -direction));
+
+
   }
 
   return (
