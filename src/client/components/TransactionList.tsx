@@ -2,12 +2,9 @@ import React from 'react';
 
 interface TransListProps {
   transList: Array<any>;
-  handleSort(): void;
+  handleSort(e: React.MouseEvent<HTMLElement>): void;
 }
 
-interface TransactionListState {
-  transactions: Array<any>
-}
 
 const TransactionList = (props: TransListProps) => {
   return (
@@ -21,11 +18,11 @@ const TransactionList = (props: TransListProps) => {
             </th>
             <th><i className="fas fa-redo-alt"></i></th>
           </tr>
-          <tr>
+          <tr onClick={(e) => props.handleSort(e)} >
             <th></th>
-            <th>Date</th>
+            <th >Date</th>
             <th>Description</th>
-            <th onClick={props.handleSort}>Amount</th>
+            <th>Amount</th>
             <th>Category</th>
           </tr>
         </thead>
