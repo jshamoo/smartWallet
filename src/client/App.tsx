@@ -7,9 +7,15 @@ import FileUpload from './components/FileUpload';
 import { trans, cate } from './demoData';
 
 interface State {
-  transactions: Array<object>
+  transactions: Array<Record>
 }
 
+interface Record {
+  Date: string,
+  Amount: number,
+  Description: string,
+  Category: string
+}
 
 class App extends React.Component<{}, State> {
   constructor(props: any) {
@@ -17,7 +23,8 @@ class App extends React.Component<{}, State> {
     this.state = {
       transactions: trans
     }
-    this.handleFileSubmit = this.handleFileSubmit.bind(this)
+    this.handleFileSubmit = this.handleFileSubmit.bind(this);
+    this.handleSort = this.handleSort.bind(this);
   }
 
   handleFileSubmit(file: File) {
@@ -33,12 +40,18 @@ class App extends React.Component<{}, State> {
       }
     })
       .then((res) => {
-        console.log('success', res);
+        console.log('success res data', res.data);
         this.setState({
           transactions: res.data
         })
       })
       .catch((err) => console.log(err));
+  }
+
+  handleSort() {
+    this.setState({
+        transactions: this.state.transactions.sort((a: Record, b: Record) => a.Amount - b.Amount)
+      });
   }
 
   render() {
@@ -47,7 +60,7 @@ class App extends React.Component<{}, State> {
         <h1>Smart Wallet</h1>
         <FileUpload handleFileSubmit={this.handleFileSubmit}/>
         <div className="app">
-          <TransactionList transList={this.state.transactions}/>
+          <TransactionList transList={this.state.transactions} handleSort={this.handleSort}/>
         </div>
         <div className="category">
           <h3>Budget Categories</h3>
@@ -61,11 +74,4 @@ class App extends React.Component<{}, State> {
 
 export default App;
 
-// interface Record {
-//   amount: string,
-//   createdAt: string,
-//   date: string,
-//   description: string,
-//   id: number,
-//   updatedAt: string,
-// }
+//

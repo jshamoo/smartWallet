@@ -1,7 +1,12 @@
 import React from 'react';
 
-interface TransListProps{
+interface TransListProps {
   transList: Array<any>;
+  handleSort(): void;
+}
+
+interface TransactionListState {
+  transactions: Array<any>
 }
 
 const TransactionList = (props: TransListProps) => {
@@ -12,7 +17,7 @@ const TransactionList = (props: TransListProps) => {
         <thead>
           <tr>
             <th>
-              <input type="checkbox"/>
+              <input type="checkbox" />
             </th>
             <th><i className="fas fa-redo-alt"></i></th>
           </tr>
@@ -20,7 +25,7 @@ const TransactionList = (props: TransListProps) => {
             <th></th>
             <th>Date</th>
             <th>Description</th>
-            <th>Amount</th>
+            <th onClick={props.handleSort}>Amount</th>
             <th>Category</th>
           </tr>
         </thead>
@@ -28,7 +33,7 @@ const TransactionList = (props: TransListProps) => {
           {props.transList.map((record, index) => (
             <tr key={index}>
               <td>
-                <input type="checkbox"/>
+                <input type="checkbox" />
               </td>
               <td>{record.Date}</td>
               <td>{record.Description}</td>
@@ -37,7 +42,6 @@ const TransactionList = (props: TransListProps) => {
             </tr>
           ))}
         </tbody>
-
       </table>
     </div>
   )
