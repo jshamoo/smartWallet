@@ -1,14 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import TransactionList from './components/TransactionList';
 import BugetCategoryList from './components/BugetCategoryList';
 import AddCategory from './components/AddCategory';
 import FileUpload from './components/FileUpload';
 import { trans, cate } from './demoData';
-
-interface State {
-  transactions: Array<Record>
-}
 
 interface Record {
   Date: string,
@@ -17,17 +13,13 @@ interface Record {
   Category: string
 }
 
-class App extends React.Component<{}, State> {
-  constructor(props: any) {
-    super(props);
-    this.state = {
-      transactions: trans
-    }
-    this.handleFileSubmit = this.handleFileSubmit.bind(this);
-    this.handleSort = this.handleSort.bind(this);
-  }
+interface State {
+  transactions: Array<Record>
+}
 
-  handleFileSubmit(file: File) {
+const App = () => {
+  const [transactions, setTransactions] = useState(trans)
+  function handleFileSubmit(file: File) {
     const formData = new FormData();
 
     formData.append('fin', file);
@@ -48,28 +40,25 @@ class App extends React.Component<{}, State> {
       .catch((err) => console.log(err));
   }
 
-  handleSort() {
-    this.setState({
-        transactions: this.state.transactions.sort((a: Record, b: Record) => a.Amount - b.Amount)
-      });
+  function handleSort() {
+    setTransactions(transactions.sort((a: Record, b: Record) => a.Amount - b.Amount));
   }
 
-  render() {
-    return (
-      <div>
-        <h1>Smart Wallet</h1>
-        <FileUpload handleFileSubmit={this.handleFileSubmit}/>
-        <div className="app">
-          <TransactionList transList={this.state.transactions} handleSort={this.handleSort}/>
-        </div>
-        <div className="category">
-          <h3>Budget Categories</h3>
-          <BugetCategoryList />
-          <AddCategory />
-        </div>
+  return (
+    <div>
+      <h1>Smart Wallet</h1>
+      <FileUpload handleFileSubmit={handleFileSubmit}/>
+      <div className="app">
+        <TransactionList transList={transactions} handleSort={handleSort}/>
       </div>
-    )
-  }
+      <div className="category">
+        <h3>Budget Categories</h3>
+        <BugetCategoryList />
+        <AddCategory />
+      </div>
+    </div>
+  )
+
 }
 
 export default App;
