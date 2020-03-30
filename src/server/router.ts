@@ -40,10 +40,11 @@ export function convert(csv: string): Array<object> {
     let idx = i % (keys.length);
 
     record[keys[idx]] = content[i];
-    if (idx === 4) {
+    if (idx === keys.length - 1) {
       transactionArr.push(record);
       record = {}
     }
   }
+
   return transactionArr;
 }
