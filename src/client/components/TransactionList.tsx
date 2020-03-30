@@ -11,6 +11,13 @@ const TransactionList = (props: TransListProps) => {
       <table className="transactions-table">
         <thead>
           <tr>
+            <th>
+              <input type="checkbox"/>
+            </th>
+            <th><i className="fas fa-redo-alt"></i></th>
+          </tr>
+          <tr>
+            <th></th>
             <th>Date</th>
             <th>Description</th>
             <th>Amount</th>
@@ -19,10 +26,13 @@ const TransactionList = (props: TransListProps) => {
         </thead>
         <tbody>
           {props.transList.map(record => (
-            <tr className="t-records" key={record.id}>
+            <tr key={record.id}>
+              <td>
+                <input type="checkbox"/>
+              </td>
               <td>{record.date}</td>
               <td>{record.description}</td>
-              <td>{record.amount}</td>
+              <td>$ {record.amount}</td>
             </tr>
           ))}
         </tbody>
