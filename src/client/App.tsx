@@ -48,7 +48,7 @@ const App = () => {
     setDirection(-direction);
     const sortBy = e.target.innerText;
     // because sort is in place, we must make a copy first, otherwise it is not considered to be a new state
-    setTransactions([...transactions]
+    setFilteredTrans([...filteredTrans]
       .sort((a: Record, b: Record) =>
         a[sortBy] > b[sortBy] ? direction : -direction)
     );
