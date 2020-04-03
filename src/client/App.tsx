@@ -8,6 +8,7 @@ import SearchBar from './components/SearchBar';
 import { trans, cate } from './demoData';
 
 interface Record {
+  id: number;
   Date: string,
   Amount: number,
   Description: string,
@@ -61,17 +62,28 @@ const App = () => {
     setFilteredTrans(transactions.filter((a: Record) => a.Description.match(regex)));
   }
 
+  function updateCategory(newCategory: string, recordId: number) {
+    const newTransactions = transactions.map(record => {
+      if (record.id === recordId) {
+        record.Category = newCategory;
+      }
+      return record;
+    })
+    console.log(newCategory)
+    console.log(newTransactions);
+  }
+
   return (
     <div>
       <h1>Smart Wallet</h1>
       <FileUpload handleFileSubmit={handleFileSubmit}/>
       <SearchBar handleTransSearch={handleTransSearch}/>
-      <TransactionList transList={filteredTrans} cateList={cate} handleSort={handleSort}/>
-      <div className="category">
+      <TransactionList transList={filteredTrans} cateList={cate} handleSort={handleSort} updateCategory={updateCategory}/>
+      {/* <div className="category">
         <h3>Budget Categories</h3>
         <BugetCategoryList />
         <AddCategory />
-      </div>
+      </div> */}
     </div>
   )
 

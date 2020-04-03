@@ -5,6 +5,7 @@ interface TransListProps {
   transList: Array<any>;
   cateList: Array<any>;
   handleSort(e: React.MouseEvent<HTMLElement>): void;
+  updateCategory: Function;
 }
 
 
@@ -29,8 +30,8 @@ const TransactionList = (props: TransListProps) => {
           </tr>
         </thead>
         <tbody>
-          {props.transList.map((record, index) => (
-            <tr key={index}>
+          {props.transList.map((record) => (
+            <tr key={record.id}>
               <td>
                 <input type="checkbox" />
               </td>
@@ -38,7 +39,7 @@ const TransactionList = (props: TransListProps) => {
               <td>{record.Description}</td>
               <td>$ {record.Amount}</td>
               <td>
-                <CategorySelect record={record} cateList={props.cateList}/>
+                <CategorySelect record={record} cateList={props.cateList} updateCategory={props.updateCategory}/>
               </td>
             </tr>
           ))}
