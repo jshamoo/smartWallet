@@ -11,7 +11,7 @@ const SearchBar = (props: SearchBarProps) => {
 
   return (
     <div>
-      <i className="fas fa-search"></i><input type="search" placeholder="Search transactions" onChangeCapture={e => handleSearch(e)}/>
+      <i className="fas fa-search"></i><input type="text" placeholder="Search transactions" onChange={e => handleSearch(e)}/>
     </div>
   )
 }

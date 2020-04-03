@@ -66,7 +66,7 @@ const App = () => {
       <h1>Smart Wallet</h1>
       <FileUpload handleFileSubmit={handleFileSubmit}/>
       <SearchBar handleTransSearch={handleTransSearch}/>
-      <TransactionList transList={filteredTrans} handleSort={handleSort}/>
+      <TransactionList transList={filteredTrans} cateList={cate} handleSort={handleSort}/>
       <div className="category">
         <h3>Budget Categories</h3>
         <BugetCategoryList />

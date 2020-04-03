@@ -1,7 +1,9 @@
 import React from 'react';
+import CategorySelect from './CategorySelect';
 
 interface TransListProps {
   transList: Array<any>;
+  cateList: Array<any>;
   handleSort(e: React.MouseEvent<HTMLElement>): void;
 }
 
@@ -35,7 +37,9 @@ const TransactionList = (props: TransListProps) => {
               <td>{record.Date}</td>
               <td>{record.Description}</td>
               <td>$ {record.Amount}</td>
-              <td>{record.Category}</td>
+              <td>
+                <CategorySelect record={record} cateList={props.cateList}/>
+              </td>
             </tr>
           ))}
         </tbody>
