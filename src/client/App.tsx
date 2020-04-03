@@ -37,9 +37,7 @@ const App = () => {
     })
       .then((res) => {
         console.log('success res data', res.data);
-        this.setState({
-          transactions: res.data
-        })
+        setTransactions(res.data)
       })
       .catch((err) => console.log(err));
   }
