@@ -9,6 +9,10 @@ h1 {
   margin: 20px;
   color: #00a07b;
 }
+
+form {
+  margin-bottom: 30px;
+}
 /*
 .app {
   display: flex;

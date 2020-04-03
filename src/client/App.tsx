@@ -4,6 +4,7 @@ import TransactionList from './components/TransactionList';
 import BugetCategoryList from './components/BugetCategoryList';
 import AddCategory from './components/AddCategory';
 import FileUpload from './components/FileUpload';
+import SearchBar from './components/SearchBar';
 import { trans, cate } from './demoData';
 
 interface Record {
@@ -21,6 +22,7 @@ interface State {
 
 const App = () => {
   const [transactions, setTransactions] = useState(trans);
+  const [filteredTrans, setFilteredTrans] = useState(transactions)
   const [direction, setDirection] = useState(1);
 
   function handleFileSubmit(file: File) {
@@ -46,18 +48,25 @@ const App = () => {
     setDirection(-direction);
     const sortBy = e.target.innerText;
     // because sort is in place, we must make a copy first, otherwise it is not considered to be a new state
-    setTransactions([...transactions].sort((a: Record, b: Record) => a[sortBy] > b[sortBy] ? direction : -direction));
+    setTransactions([...transactions]
+      .sort((a: Record, b: Record) =>
+        a[sortBy] > b[sortBy] ? direction : -direction)
+    );
 
 
+  }
+
+  function handleTransSearch(keyword: string) {
+    const regex = new RegExp(keyword, 'gi');
+    setFilteredTrans(transactions.filter((a: Record) => a.Description.match(regex)));
   }
 
   return (
     <div>
       <h1>Smart Wallet</h1>
       <FileUpload handleFileSubmit={handleFileSubmit}/>
-      <div className="app">
-        <TransactionList transList={transactions} handleSort={handleSort}/>
-      </div>
+      <SearchBar handleTransSearch={handleTransSearch}/>
+      <TransactionList transList={filteredTrans} handleSort={handleSort}/>
       <div className="category">
         <h3>Budget Categories</h3>
         <BugetCategoryList />

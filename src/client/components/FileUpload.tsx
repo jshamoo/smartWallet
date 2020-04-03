@@ -25,13 +25,13 @@ const FileUpload = (props: FileUploadProps) => {
     <form onSubmit={(e) => handleSubmit(e)} encType="multipart/form-data">
       <label>
         Upload Your CSV File:
+        <br />
         <input
           type="file"
           accept=".csv"
           onChange={(e) => handleFile(e)}
         />
       </label>
-      <br />
       <button type="submit">Submit</button>
     </form>
   )
