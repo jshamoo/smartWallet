@@ -1,11 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import CategorySelect from './CategorySelect';
+import SearchBar from './SearchBar';
 
 interface TransListProps {
   transList: Array<any>;
   cateList: Array<any>;
   handleSort(e: React.MouseEvent<HTMLElement>): void;
   updateCategory: Function;
+  handleTransSearch: Function;
 }
 
 
@@ -27,7 +29,7 @@ const TransactionList = (props: TransListProps) => {
       checkbox.checked = checkedAll;
       updatedCheckedIds.push(Number(checkbox.dataset.recordid));
     }
-    // console.log(updatedCheckedIds);
+    console.log(updatedCheckedIds);
     setCheckedIds(updatedCheckedIds);
   }, [checkedAll]);
 
@@ -40,6 +42,7 @@ const TransactionList = (props: TransListProps) => {
   return (
     <div className="transactions">
       <h3>Transactions</h3>
+      <SearchBar handleTransSearch={props.handleTransSearch} />
       <div className="table">
         <div className="table-header" onClick={(e) => props.handleSort(e)} >
           <input id="selectAll" type="checkbox" onChange={handleCheckedAll} />

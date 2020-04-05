@@ -4,7 +4,6 @@ import TransactionList from './components/TransactionList';
 import BugetCategoryList from './components/BugetCategoryList';
 import AddCategory from './components/AddCategory';
 import FileUpload from './components/FileUpload';
-import SearchBar from './components/SearchBar';
 import { trans, cate } from './demoData';
 
 interface Record {
@@ -77,8 +76,13 @@ const App = () => {
     <div>
       <h1>Smart Wallet</h1>
       <FileUpload handleFileSubmit={handleFileSubmit}/>
-      <SearchBar handleTransSearch={handleTransSearch}/>
-      <TransactionList transList={filteredTrans} cateList={cate} handleSort={handleSort} updateCategory={updateCategory}/>
+      <TransactionList
+        transList={filteredTrans}
+        cateList={cate}
+        handleSort={handleSort}
+        updateCategory={updateCategory}
+        handleTransSearch={handleTransSearch}
+      />
       {/* <div className="category">
         <h3>Budget Categories</h3>
         <BugetCategoryList />
