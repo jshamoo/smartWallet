@@ -25,7 +25,7 @@ const TransactionList = (props: TransListProps) => {
     for (let i = 1; i < checkboxes.length; i++) {
       let checkbox = checkboxes[i] as HTMLInputElement;
       checkbox.checked = checkedAll;
-      updatedCheckedIds.push(Number(checkbox.id));
+      updatedCheckedIds.push(Number(checkbox.dataset.recordid));
     }
     // console.log(updatedCheckedIds);
     setCheckedIds(updatedCheckedIds);
@@ -43,30 +43,35 @@ const TransactionList = (props: TransListProps) => {
       <div className="table">
         <div className="table-header" onClick={(e) => props.handleSort(e)} >
           <input id="selectAll" type="checkbox" onChange={handleCheckedAll} />
-          <div>Date</div>
-          <div>Description</div>
-          <div>Amount</div>
-          <div>Category</div>
+          { !checkedAll &&
+            <>
+            <div>Date</div>
+            <div>Description</div>
+            <div>Amount</div>
+            <div>Category</div>
+            </>
+          }
+          { checkedAll &&
+            <>
+              <input
+                className="category-input"
+                type="text"
+                placeholder="Enter a category for all selected items"
+                onChange={e => setCategory(e.target.value)}
+              />
+            <button onClick={updateCategoryAtOnce}>Update All</button>
+            </>
+          }
         </div>
-        { checkedAll &&
-          <div>
-            <input
-              className="category-input"
-              type="text"
-              placeholder="Enter a category for all selected items"
-              onChange={e => setCategory(e.target.value)}
-            />
-          <button onClick={updateCategoryAtOnce}>Update All</button>
-          </div>
-        }
         <div className="table-content">
           {props.transList.map((record) => (
             <div className="record" key={record.id}>
-              <input id={record.id} type="checkbox" />
-              <div>{record.Date}</div>
-              <div>{record.Description}</div>
-              <div>$ {record.Amount}</div>
-              <CategorySelect record={record} cateList={props.cateList} updateCategory={props.updateCategory}/>
+              <input data-recordid={record.id} type="checkbox" />
+              <div className="date">{record.Date}</div>
+              <div className="desc">{record.Description}</div>
+              <div className="amount">$ {record.Amount}</div>
+              <div><CategorySelect record={record} cateList={props.cateList} updateCategory={props.updateCategory}/>
+              </div>
             </div>
           ))}
         </div>
