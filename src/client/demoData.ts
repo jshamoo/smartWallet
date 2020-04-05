@@ -30,5 +30,6 @@ export const cate: Array<Category> = [
   { "id": 1, "name": "Grocery", "budget": 1000 },
   { "id": 2, "name": "Hobby", "budget": 2000},
   { "id": 3, "name": "Bill", "budget": 1000},
-  { "id": 4, "name": "Clothing", "budget": 1000 }
+  { "id": 4, "name": "Clothing", "budget": 1000 },
+  { "id": 5, "name": "Food", "budget": 1000 }
 ]

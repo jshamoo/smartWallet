@@ -25,8 +25,8 @@ const CategorySelect = (props: CategorySelectProps) => {
   const [selected, setSelected] = useState(props.record.Category);
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelected(e.target.value);
-    const recordId = Number(e.target.dataset.recordid);
-    props.updateCategory(e.target.value, recordId);
+    const recordIds = [Number(e.target.dataset.recordid)];
+    props.updateCategory(e.target.value, recordIds);
   }
 
   return (

@@ -13,6 +13,24 @@ h1 {
 form {
   margin-bottom: 30px;
 }
+
+.table-header {
+  display: flex;
+}
+
+.table-header * {
+  margin: 5px;
+}
+
+.record {
+  display: flex;
+  flex: 1;
+}
+
+.record * {
+  margin: 5px;
+}
+
 /*
 .app {
   display: flex;

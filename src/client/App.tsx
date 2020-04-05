@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import TransactionList from './components/TransactionList';
 import BugetCategoryList from './components/BugetCategoryList';
@@ -53,8 +53,6 @@ const App = () => {
       .sort((a: Record, b: Record) =>
         a[sortBy] > b[sortBy] ? direction : -direction)
     );
-
-
   }
 
   function handleTransSearch(keyword: string) {
@@ -62,15 +60,17 @@ const App = () => {
     setFilteredTrans(transactions.filter((a: Record) => a.Description.match(regex)));
   }
 
-  function updateCategory(newCategory: string, recordId: number) {
+  function updateCategory(newCategory: string, recordIds: Array<number>) {
     const newTransactions = transactions.map(record => {
-      if (record.id === recordId) {
+      if (recordIds.includes(record.id)) {
         record.Category = newCategory;
       }
       return record;
-    })
-    console.log(newCategory)
-    console.log(newTransactions);
+    });
+    console.log('newTransactions', newTransactions)
+    // setTransactions([...newTransactions]);
+    setTransactions(newTransactions);
+    console.log('new filtered Transactions', filteredTrans)
   }
 
   return (
