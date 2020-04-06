@@ -17,6 +17,8 @@ export function handleUpload(req: Request, res: Response) {
   })
 };
 
+/** TO Do: save the uploaded file to database fo the authorized user */
+
 export function convert(csv: string): Array<object> {
   const regexR = /\r/g;
   const regexN = /\n/g;

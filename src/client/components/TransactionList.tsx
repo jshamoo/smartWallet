@@ -22,14 +22,12 @@ const TransactionList = (props: TransListProps) => {
 
   useEffect(() => {
     const checkboxes = document.querySelectorAll('input[type=checkbox]');
-    // console.log('checkboxes', checkboxes)
     const updatedCheckedIds = [];
     for (let i = 1; i < checkboxes.length; i++) {
       let checkbox = checkboxes[i] as HTMLInputElement;
       checkbox.checked = checkedAll;
       updatedCheckedIds.push(Number(checkbox.dataset.recordid));
     }
-    console.log(updatedCheckedIds);
     setCheckedIds(updatedCheckedIds);
   }, [checkedAll]);
 

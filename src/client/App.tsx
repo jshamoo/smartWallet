@@ -38,7 +38,6 @@ const App = () => {
       }
     })
       .then((res) => {
-        console.log('success res data', res.data);
         setTransactions(res.data)
       })
       .catch((err) => console.log(err));
@@ -47,7 +46,6 @@ const App = () => {
   function handleSort(e: React.MouseEvent<HTMLElement>) {
     setDirection(-direction);
     const sortBy = e.target.innerText;
-    // because sort is in place, we must make a copy first, otherwise it is not considered to be a new state
     setFilteredTrans([...filteredTrans]
       .sort((a: Record, b: Record) =>
         a[sortBy] > b[sortBy] ? direction : -direction)
@@ -94,5 +92,3 @@ const App = () => {
 }
 
 export default App;
-
-//
